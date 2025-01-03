@@ -1,0 +1,15 @@
+/home/digipark/Desktop/parse-info/node_modules/@puppeteer/browsers/lib/cjs/launch.js:314
+                reject(new Error([
+                       ^
+
+Error: Failed to launch the browser process!
+[442880:442880:0103/200548.482700:FATAL:zygote_host_impl_linux.cc(128)] No usable sandbox! If you are running on Ubuntu 23.10+ or another Linux distro that has disabled unprivileged user namespaces with AppArmor, see https://chromium.googlesource.com/chromium/src/+/main/docs/security/apparmor-userns-restrictions.md. Otherwise see https://chromium.googlesource.com/chromium/src/+/main/docs/linux/suid_sandbox_development.md for more information on developing with the (older) SUID sandbox. If you want to live dangerously and need an immediate workaround, you can try using --no-sandbox.
+[0103/200548.490978:ERROR:file_io_posix.cc(145)] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq: No such file or directory (2)
+[0103/200548.491022:ERROR:file_io_posix.cc(145)] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq: No such file or directory (2)
+
+
+TROUBLESHOOTING: https://pptr.dev/troubleshooting
+
+    at ChildProcess.onClose (/home/digipark/Desktop/parse-info/node_modules/@puppeteer/browsers/lib/cjs/launch.js:314:24)
+    at ChildProcess.emit (node:events:529:35)
+    at ChildProcess._handle.onexit (node:internal/child_process:292:12)
