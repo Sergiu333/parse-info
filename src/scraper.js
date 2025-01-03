@@ -5,7 +5,11 @@ const { saveData } = require('./saveData');
 
 (async () => {
     const urlBase = 'https://aromo.ru/perfumes/page/';
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
+
     const page = await browser.newPage();
 
     let produse = [];
