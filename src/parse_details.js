@@ -7,7 +7,11 @@ const { downloadImage } = require('./downloadImages');
     const inputFilePath = path.join(__dirname, '../perfumes/produse.json');
     const produse = JSON.parse(fs.readFileSync(inputFilePath, 'utf-8'));
 
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+     });
+
     const page = await browser.newPage();
 
     for (let produs of produse) {
