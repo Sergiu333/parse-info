@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const fs = require('fs');
 const { autoScroll } = require('./autoScroll');
 const { downloadImage } = require('./downloadImages');
 const { saveData } = require('./saveData');
@@ -6,22 +7,30 @@ const { saveData } = require('./saveData');
 (async () => {
     const urlBase = 'https://aromo.ru/perfumes/page/';
     const browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
 
     const page = await browser.newPage();
 
     let produse = [];
-    let paginaCurenta = 1;
+    let paginaCurenta = 877;
+
+    const filePath = '../perfumes/produse.json';
+    if (fs.existsSync(filePath)) {
+        console.log('Se încarcă datele existente din produsele salvate...');
+        const existingData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        produse = existingData;
+    }
+
     let hasNextPage = true;
 
     while (hasNextPage) {
         const url = `${urlBase}${paginaCurenta}/`;
-        console.log(`Navigam la URL-ul: ${url}`);
+        console.log(`Navigăm la URL-ul: ${url}`);
         await page.goto(url, { waitUntil: 'networkidle2' });
 
-        console.log('Derulam pagina pentru a incarca imaginile...');
+        console.log('Derulăm pagina pentru a încărca imaginile...');
         await autoScroll(page);
 
         console.log('Extragem datele produselor...');
@@ -51,7 +60,7 @@ const { saveData } = require('./saveData');
             }
         }
 
-        saveData(produse, '../perfumes/produse.json');
+        saveData(produse, filePath);
         hasNextPage = produsePagina.length > 0;
 
         if (hasNextPage) {
@@ -60,5 +69,5 @@ const { saveData } = require('./saveData');
     }
 
     await browser.close();
-    console.log('Browserul a fost inchis.');
+    console.log('Browserul a fost închis.');
 })();
